@@ -1,4 +1,4 @@
-# AWS Solution Architect
+# AWS Solution Architect Associate (SAA-003)
 Link: https://www.udemy.com/course/aws-certified-solutions-architect-associate-saa-c02/learn/lecture/13541136#overview
 ## Section 1: Introduction
 1.	Video – Course Introduction
@@ -480,7 +480,6 @@ software licenses (per-socket, per-core, pre-VM software licenses)
  -	 You’re charged at On-Demand rate Whether you run instance or not.
   -	Suitable for short-term, uninterrupted workloads that needs to be in a specific AZ.
 ## 44.	Spot Instance Request
-	
-
-
-
+- You can get upto 90% discount to on-demand
+Define max spot price and get the instance while current spot price < max 
+  - The hourly spot price varies based on offer and cap

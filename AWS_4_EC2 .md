@@ -288,12 +288,63 @@ software licenses (per-socket, per-core, pre-VM software licenses)
 Define max spot price and get the instance while current spot price < max 
   - The hourly spot price varies based on offer and capacity
   - IF the current spot price > your max proce you choose to stop or terminate your instance with a 2 minutes grace period
-- Other strategy: spot block
+- Other strategy: spot block (Depricatd after DEc 2022 by AWS)
   - "block" spot intance during a specified time frame (1 to 6 hours) without interruption 
   - In rere situation, the instance may be reclaimed
 - Used for batch jobs, data analysis, or workloads that are resillient to failuers.
 - Not greate for critical process or databses.
 - How to terminate spot instances
-  - 
+  - instance needs to be in any of these states - open, active or disabled in order to terminate it
+- Spot Fleets
+  - Set of Spot Instances + (Optional) On-Demand Instances
+  - It will try to meeet the target capacity woith price constraints
+    - Define possible launch pools; instacne type(m5.large), OS, AZ
+    - Can have multiple launch poolsm so that the fleet can choose
+    - Spot Fleet stops launching instances when reaching capaclity or max max cost
+ - Strategies to allocate Spot Instances
+    - Lowest Price: from the pool with the lowest price (cost optimization, short workloads)
+  - diversified: distributed across all pool (great for availibility, long workload)
+  - capacityOptimized: pool with the optimal capacity for the number of instances
+  - priceCapacityOptimized:(recommended) pools with highest capacity available, then select the pool with the lowest proce (best chosice for most workloads)
+- Spot fleets allows us to automatically request Spot Instances with the lowest price.
+
+## 45. EC2 Instacne Launcg Types Hands On:
+- Explore various option in spot INstacnes
+- We can also request spot instance while creating normal instance
+  - Just select spot instance chekbox in advance settign while creating instance
+  - It will by default keep your max price equals to on-Demand which you can ,customize as well.
+  - You can select request type ( One time/Persistant)
+  - for persistance select data range and action (teminate/hibernate/stop)when instance proce goes up that your set price.
+## Quiz
+- Which EC2 Purchasing Option can provide you the biggest discount, but it is not suitable for critical jobs or databases?
+  - Spot Instances
+- What should you use to control traffic in and out of EC2 instances?
+  - Security Groups
+- How long can you reserve an EC2 Reserved Instance?
+  - 1 or 3 years
+- You would like to deploy a High-Performance Computing (HPC) application on EC2 instances. Which EC2 instance type should you choose?
+  - Compute Optimized
+- Which EC2 Purchasing Option should you use for an application you plan to run on a server continuously for 1 year?
+  - Reserved Instance
+- You are preparing to launch an application that will be hosted on a set of EC2 instances. This application needs some software installation and some OS packages need to be updated during the first launch. What is the best way to achieve this when you launch the EC2 instances?
+  - Write a batch script that installs the required software and updates to your OS, then use this script in EC2 User Data when you launch your EC2 instance.
+- Which EC2 Instance Type should you choose for a critical application that uses an in-memory database?
+  - Memory optimized
+- You have an e-commerce application with an OLTP database hosted on-premises. This application has popularity which results in its database has thousands of requests per second. You want to migrate the database to an EC2 instance. Which EC2 Instance Type should you choose to handle this high-frequency OLTP database?
+  - Storage Optimized
+- Security Groups can be attached to only **one EC2 instance**.
+  - False ( Security Groups can be attached to multiple EC2 instances within the same AWS Region/VPC.)
+- You're planning to migrate on-premises applications to AWS. Your company has strict compliance requirements that require your applications to run on dedicated servers. You also need to use your own server-bound software license to reduce costs. Which EC2 Purchasing Option is suitable for you?
+  - DEdicated Hosts (Dedicated Hosts are good for companies with strong compliance needs or for software that have complicated licensing models. This is the most expensive EC2 Purchasing Option available.)
+- You would like to deploy a database technology on an EC2 instance and the vendor license bills you based on the physical cores and underlying network socket visibility. Which EC2 Purchasing Option allows you to get visibility into them?
+  - Dedicated Host
+
+
+
+
+
+
+  
+  
   
   

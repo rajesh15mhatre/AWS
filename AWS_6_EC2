@@ -1,0 +1,12 @@
+# Section 6: EC2 -Solutions Architect Level 
+## 46 Private vs Public vs Elastic IP
+- 2 sort of IPs 
+  - IPv4: 1.168.12.123
+  - IPv6: 1244:2323:2:200:f4ff:f3er:545Ccv
+- IPv4 is the most common format used online
+- IPv6 is nwer and cles problems for the IoT
+- IPv4 allows for 3.7 billion different address in thepublic space
+- IPv4: [0-255].[0-255].[0-255].[0-255]
+- Company machine connects to www using NAT + internet gateway (a proxy)
+- ONly a specified range of IPs can be used as provate IP
+

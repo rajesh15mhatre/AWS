@@ -4,9 +4,23 @@
   - IPv4: 1.168.12.123
   - IPv6: 1244:2323:2:200:f4ff:f3er:545Ccv
 - IPv4 is the most common format used online
-- IPv6 is nwer and cles problems for the IoT
+- IPv6 is newer and solves problems for the IoT
 - IPv4 allows for 3.7 billion different address in thepublic space
 - IPv4: [0-255].[0-255].[0-255].[0-255]
 - Company machine connects to www using NAT + internet gateway (a proxy)
-- ONly a specified range of IPs can be used as provate IP
+- Only a specified range of IPs can be used as provate IP
+- When you start and stop VM IPV4 changes 
+- We can use elastic IP **chargable service** to keep static public IP for VM
+- We can have 5 elastic IP in your account (we cal also ask AWS to increase that)
+- Avoid using Elastic IP
+  - They often reflect poor architecture
+  - Instead, use a random public IP and register a DNS name to it 
+  - WE can also use load balancer
+- By default VM comenrs with Private and public IP
+- USe public IP while SSH
+## 47. Private vs Public vs Elastic IP Hands on
+- creaete VM, connect it by ssh, stop VM , see IP changes , ssh usign old and new IP, attache elastic IP 
+connect shh using elastic IP, start stop and see elatic IP is fixed, remove elastic IP 
+- Elastic IP are not changable as ling as we don't use it 
+
 

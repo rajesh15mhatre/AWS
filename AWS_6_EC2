@@ -8,19 +8,52 @@
 - IPv4 allows for 3.7 billion different address in thepublic space
 - IPv4: [0-255].[0-255].[0-255].[0-255]
 - Company machine connects to www using NAT + internet gateway (a proxy)
-- Only a specified range of IPs can be used as provate IP
+- Only a specified range of IPs can be used as private IP
 - When you start and stop VM IPV4 changes 
 - We can use elastic IP **chargable service** to keep static public IP for VM
 - We can have 5 elastic IP in your account (we cal also ask AWS to increase that)
 - Avoid using Elastic IP
   - They often reflect poor architecture
   - Instead, use a random public IP and register a DNS name to it 
-  - WE can also use load balancer
-- By default VM comenrs with Private and public IP
-- USe public IP while SSH
+  - We can also use load balancer
+- By default VM comes with Private and Public IP
+- Use public IP while SSH
 ## 47. Private vs Public vs Elastic IP Hands on
-- creaete VM, connect it by ssh, stop VM , see IP changes , ssh usign old and new IP, attache elastic IP 
+- Create VM, connect it by ssh, stop VM , see IP changes , ssh usign old and new IP, attache elastic IP 
 connect shh using elastic IP, start stop and see elatic IP is fixed, remove elastic IP 
 - Elastic IP are not changable as ling as we don't use it 
+## 48 EC2 placement groups
+- Control EC2 instance placement groups strategies:
+ - Cluster -  cluster instance into a low latency group in a single AZ.
+  - Instances are on same racks same AZ
+  - Pros: 10 GBPS bandwith
+  - Cons: if rack fails on EC2 instacne fails same time
+  - Usecase: 
+    - Big data jobs that needs to complete fast
+    - App that needs extremely low latency and high network throughput
+ - Spread - spread instance across underlying hardware (max 7 instances per group per AZ) - critical application
+  - Pros: 
+    - Can span across AZs
+    - Reduced risk of simultaneous failure
+  - Con:
+    - Limited to 7 instances per AZs per group
+  - USe case
+    - App that needs to maximize highavailability
+    - Critical app where each instance must be isolated from failure from each other
+ - Partition  - Spread instance across many different partitions (which rely on different set of racks) within an AZ. Scales to 100 of EC2 instances per group 
+ - EC2 instacnes partitions across different racks on an AZ in same region. 
+ - In one AZ you can have up to 7 partitions
+ - Up to 100s of EC2 instacnes
+ - A partition failure can affect many EC2 but won't affect other partitions
+ - EC2 instances get access to the pertition information as metadata
+ - USecase: Hadoop, Cassandra, Kafka
+## 49 EC2 placement group hands on
+- Goto EC2 -> polacement group -> provide name -> select strategy (cluster/spared/partition)
+- WHile launcing instance -> select placement group
 
+## 50. Elastic network INterfaces
+- 
+
+ 
+ 
 

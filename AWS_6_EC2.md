@@ -85,5 +85,19 @@ connect shh using elastic IP, start stop and see elatic IP is fixed, remove elas
   - Saving the RAM state
   - Services the take time to initialize 
 - EC2 Hibernate Good to know
-
+  - Supported most of Instace and OS types
+  - RAM size must be less than 150GB
+  - Not suported for bare metal instances
+  - Root volumn must be EBS, encrypted, not instance store, and large
+  - Available for On-demand, Reserved, and Spot Instances
+  - An Instance can NOT be hibernated more than 60 days
+  ## 55. Hibernate Hands on
+  - While Creating Instance Enable Stop - Hibernaete behaviour
+  - Choose VOlumn as EBS and enctrypted and enough to stop RAM 
+  - Start instance and from instance state select hibernate
+  - hibernate do not reset uptime of EC2 instacne
+  
+  
+  ## 56 Quiz
+  - 
 

@@ -66,8 +66,29 @@ Associate Level(Solution Architect, Developer, SysOps): "multi-attach" feature f
    
 ## 60. AMI Hands on
 - Right click on EC2 instance --> image and templates -->create an image 
-- Give name 
+- Give name save it
+- now you can use it to create EC2 from AMI
 
+## 61. EC2 instance store
+- EBS volumes are network drives with good but limited  performance
+- If you need a high performance hardware disk, use EC2 instance store
+- pros and cons
+  - Better I/O performance
+  - EC2 instance store lose their storage if they're stopped (ephemeral - short lasting)
+  - good to buffer/ cache/ scratch data/ temporary content
+  - Risk of data loss if hardware fails
+  - Backups and replicas are users responsibilities
+- I/O can reach upato 3mill whereas, EBS around 32k depending on machine cpu
+
+## 62. EBS Volume types
+- EBS Volume comes in 6 types
+  - gp2 / gp3 (SSD): General puspose SSD volume that balances price and performance for a wide variety of workload
+  - io1/ io2 (SSD): Highest performance SSD volume for mission critical low latency or high throughput workloads
+  - st1 (HDD): Low cost HDD volume designed for frequently accessed, throughput-intensive workloads
+  - sc1 (HDD): Lowest cost HDD volume designed for less frequently accessed workloads
+- EBS volumes are characterized in size| throughput|IOPS
+- When in doubt always consult the AWS documentation
+- Only gp2/gp3 and io1/io2 can be used as boot volumes
 
 
 

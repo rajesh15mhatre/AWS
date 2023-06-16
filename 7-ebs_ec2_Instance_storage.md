@@ -90,6 +90,7 @@ Associate Level(Solution Architect, Developer, SysOps): "multi-attach" feature f
 - When in doubt always consult the AWS documentation
 - Only gp2/gp3 and io1/io2 can be used as boot volumes
 
+![image](https://github.com/rajesh15mhatre/AWS/assets/15013611/c4554b08-95a7-4d7b-b504-b8234a7aad43)
 
 
 

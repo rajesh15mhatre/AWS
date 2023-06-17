@@ -106,7 +106,68 @@ The exam also has removed any references to it, so we will not cover it in depth
   - The application servers don’t see the IP of the client directly
   - The true IP of the client is inserted in the header **X-Forwarded-For**
   - We can also get Port (X-Forwarded-Port) and proto (X-Forwarded-Proto)
+![image](https://github.com/rajesh15mhatre/AWS/assets/15013611/92e5dcb1-16fb-40a5-8425-1cdb900f30f5)
+## 73. ALB Hands on - part 1
+- First create 2 ec2 isntacnes with user data script
+- then create ALB from load balancing menu
+- Choose ALB--> Create
+- Gve name Demo ALB-> schema intenet facing and addres type is IPv4 
+- Create a security group to allow http traffic from anywhere into the load balancer
+- Select that secutrity group
+- Under listener and routing 
+  - create a target group 
+    - select group instaces 
+    - name it
+    - protocall http on posrt 80
+    - select ec2 instacnes a=on next page
+- Now select creted target group on port 80 and http protocol
+- Click on creste blancer button
+- Copy DSN link and test it
+- keep refreshing so you can see different IPs
 
+## Application load balancer Hands on Part-2
+- In order an app only be accessible through Load balancer
+  - Delete inbound rule of security group which allows HTTP traffic to EC2 instance
+  - Create new inboud rule  to allow HTTP traffic only from Load balance by selecting:
+  -  Source: custom and IP of loadbalancer security group
+ 
+ Cutomized Rout rule:
+ - Goto Demo ALB load lbalancer 
+ - Goto listen --> Here we can set differnt rule based on differnt situation - check drop down and explore
+ 
+ ## 75. Network Load balancer
+- Network load balancers (Layer 4) allow to:
+- Forward TCP & UDP traffic to your instances
+- Handle millions of request per seconds
+- Less latency ~100 ms (vs 400 ms for ALB)
+- NLB has one static IP per AZ, and supports assigning Elastic IP (helpful for whitelisting specific IP)
+- NLB are used for extreme performance, TCP or UDP traffic
+- Not included in the AWS free tier
+- NLB Target groups
+  - EC2 instances
+  - IP address - must be private IPs - for on premises sever
+  - ALB: We can use NLB on top of ALB to leverage its route listening rules
+  - **Health Checks supports the TCP, HTTP and HTTPS protocols**
+
+## 76. NLB Hands on
+- Create load balancer-> select NLB
+- select internet facing, ipv4
+- select AZs
+  - in each AZ we can use AWS IP or Elastic IP
+- Create target group --. nam e it
+  - Seplect protocol TCP port 80
+  - Health check -> according to app --> HTTP
+  - select path /
+  - interval 5 
+  - click next 
+  - create taegget group
+- Select target group create load balancer
+- add a rule insecurity grou  to allow HTTP from anywherer
+
+- for clean up delete 
+  - load balancer
+  - Target group
+  - INbound rule delete rue allow http from anywhere 
 
 
 

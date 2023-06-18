@@ -234,7 +234,19 @@ instance behind a load balancer
     - Goto target group --> attributes 
     - Edit -> turn off or on 
 ## 80. ELB - SSL certificate
- 
+-
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

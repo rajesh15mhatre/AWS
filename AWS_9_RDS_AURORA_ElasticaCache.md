@@ -224,12 +224,60 @@ Trick: to save money in case you want to stop a RDS , then you still pay for sto
   -  Restoring MySQL RDS database from s3
     - Creating a backup of your on-premises database
     - Store it on Amazon S3 (object store)
-    - Restore the  
+    - Restore the  backup file onto a new RDS instance running MySQL
+  - Restoring MySQL AUrora cluster from S3
+    - Create a backup of your on-premises databse using Percona XtraBackup
+    - Store the backup file on Amazon S3
+    - Restore the backup file onto a new Auroro cluster running MyySQL 
+- AUrora Databasae cloning 
+  - Create a new Aurora DB Cluster from an existing one 
+  - Faster that snapshot & restore 
+  - Uses copy-on-write protocol
+    - Initially, then new DB cluster uses the same data volume as the orignal DB Cluster (fast and efficient - no copying is needed)
+    - When usdates are made to the new DB cluster data, then additional storage is allocated and data is copied to be separated
+- Very fast & cost effective
+- Useful to create a staging database from a produciton datanbse without impacting the production database
 
-
-
-
-
+## 95. RDS & Aurora Security
+- At Rest Enctryption:
+  - Database master & replicas encryption using AWS KMS - must be defined as launch time
+  - If the master is not encrypted, the read replica cannot be encrypted
+  - To encrypt an un-encrypted database, go through a DB snapshot & restore as encrypted
+- In-flight encryption: TLS-ready by default, use the AWS TLS root certificateclient -side
+- IAM Authentication: IAM riles to connect to your databse (Instead of username/pw)
+- SEcurity groups: Control Network access to your RDS / Aurora DB
+- No SSH available except on RDS Custom
+- Audit Logs can be enabled and sent to CloudWatch Logs for longer retension
+## 96. Amazon RDS Proxy
+- Fully managed database proxy for RDS
+- Allows apps to pool and share DB connections established with the DB
+- Improving DB efficiency by reducing the stress on databse resources (E.g. CPU, RAM ) and minimize open connections (and timeouts)
+- Serverless, autoscaling, HA multi-AZ
+- Reduced RDS & Aurora failover time by up 66%
+- Supprts RDS( Mysql, Postgrem MS SQL Server, MAria DB) and Aurora
+- NO code chanhes required for mos apps
+- Enforce IAM Authentication for DB, and secuerly store credentials in AWS Secrets Manager
+- RDS Proxy is never publickly accessible (must be accessed form VPC)
+## 97. Amazon ElastiCache Overview 
+- Overview
+  - The same way RDS is to get managed Relational Databases…
+  - ElastiCache is to get managed Redis or Memcached
+  - Caches are in-memory databases with really high performance, low latency
+  - Helps reduce load off of databases for read intensive workloads
+  - Helps make your application stateless
+  - AWS takes care of OS maintenance / patching, optimizations, setup, configuration, monitoring, failure recovery and backups
+  - Using ElastiCache involves heavy application code changes
+- DB Catche Example:
+  -Applications queries ElastiCache, if not available, get from RDS and store in ElastiCache.
+  - Helps relieve load in RDS
+  - Cache must have an invalidation strategy to make sure only the most current data is used in there.
+![image](https://github.com/rajesh15mhatre/AWS/assets/15013611/4ebba95a-96f0-4bad-bc3a-1360b532ec37)
+- User session store example:
+  - User logs into any of the application - The application writes
+the session data into ElastiCache
+  - The user hits another instance of our application
+  - The instance retrieves the data and the user is already logged in 
+![image](https://github.com/rajesh15mhatre/AWS/assets/15013611/2172b35a-543b-402a-8d51-9ee268e8650f)
 
 
 

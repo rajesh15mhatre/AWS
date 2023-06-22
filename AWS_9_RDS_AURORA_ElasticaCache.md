@@ -278,8 +278,18 @@ the session data into ElastiCache
   - The user hits another instance of our application
   - The instance retrieves the data and the user is already logged in 
 ![image](https://github.com/rajesh15mhatre/AWS/assets/15013611/2172b35a-543b-402a-8d51-9ee268e8650f)
-
-
+- ElastiCache – Redis vs Memcached
+  - Redis
+    - **Multi AZ** with Auto-Failover
+    - **Read Replicas** to scale reads and have **high availability**
+    - Data Durability using AOF persistence
+    - **Backup and restore features**
+  - MEMCACHED
+    - Multi-node for partitioning of data (sharding)
+    - **No high availability (replication)**
+    - **Non persistent**
+    - **No backup and restore**
+    - Multi-threaded architecture 
 
 
 

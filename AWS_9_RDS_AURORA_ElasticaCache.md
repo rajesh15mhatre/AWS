@@ -338,13 +338,117 @@ MySQL: 3306
 
 Oracle RDS: 1521
 
-MSSQL Server: 1433
+MS SQL Server: 1433
 
 MariaDB: 3306 (same as MySQL)
 
 Aurora: 5432 (if PostgreSQL compatible) or 3306 (if MySQL compatible)
 
-Don't stress out on remember those, just read that list once today and once before going into the exam and you should be all set :)
+Don't stress out on remember those, just read that list once today and once before going into the exam, and you should be all set :)
 
 Remember, you should just be able to differentiate an "Important Port" vs an "RDS database Port".
 
+## Quiz
+
+1. Amazon RDS supports the following databases, EXCEPT:
+  - MongoDB
+2. You're planning for a new solution that requires a MySQL database that must be available even in case of a disaster in one of the Availability Zones. What should you use?
+  - Create Replicas
+  - Enable Encryption
+  - Enable Muti-AZ -- Answer
+3. We have an RDS database that struggles to keep up with the demand of requests from our website. Our million users mostly read news, and we don't post news very often. Which solution is **NOT** adapted to this problem?
+  - An ElastiCache CLuster
+  - **RDS MultiAZ**-  Answer
+  - RDS Read Replicas
+    - Be very careful with the way you read questions at the exam. Here, the question is asking which solution is NOT adapted to this problem. ElastiCache and RDS Read Replicas do indeed help with scaling reads.
+4.  You have set up read replicas on your RDS database, but users are complaining that upon updating their social media posts, they do not see their updated posts right away. What is a possible cause for this?
+  - Bug in application\
+  - **Read replicas are ASYNC thus its likely users will only read eventual consistency**
+  - You should have MutiAZ setup
+  5. Which RDS (NOT Aurora) feature when used does not require you to change the SQL connection string?
+    - **Muti-AZ**  ans
+    - Read replica
+      - Read Replicas and add new endpoints with their own DNS name. We need to change our application to reference them individually to balance the read load. Multi-AZ keeps the same connection string regardless of which database is up.
+6. Your application running on a fleet of EC2 instances managed by an Auto Scaling Group behind an Application Load Balancer. Users have to constantly log back in and you don't want to enable Sticky Sessions on your ALB as you fear it will overload some EC2 instances. What should you do?   
+- Use your own custom LB
+- Store session data in RDS
+- **Store session data in ElastiCache**
+  - Storing Session Data in ElastiCache is a common pattern to ensure different EC2 instances can retrieve your user's state if needed 
+- Store session data in shared EBS volume
+
+  7. An analytics application is currently performing its queries against your main production RDS database. These queries run at any time of the day and slow down the RDS database which impacts your users' experience. What should you do to improve the users' experience?
+- **Setup read replica**
+  - Read Replicas will help as your analytics application can now perform queries against it, and these queries won't impact the main production RDS database.
+- Setup MultiAZ
+- Run the analytics queries at night
+
+8. You would like to ensure you have a replica of your database available in another AWS Region if a disaster happens to your main AWS Region. Which database do you recommend to implement this easily?
+- RDS Read replica
+- RDS Multi-AZ
+- Aurora Read Replica
+- **Aurora Global DB**
+  - Aurora Global Databases allows you to have an Aurora Replica in another AWS Region, with up to 5 secondary regions.
+9. How can you enhance the security of your ElastiCache Redis Cluster by forcing users to enter a password when they connect?
+- **Use Redis Auth**
+- Use IAM Auth
+- Use Security Groups
+10. Your company has a production Node.js application that is using RDS MySQL 5.6 as its database. A new application programmed in Java will perform some heavy analytics workload to create a dashboard on a regular hourly basis. What is the most cost-effective solution you can implement to minimize disruption for the main application?
+- Enable Multi-AZ for the RDS db and run the analytics workload on the standby db
+- **Create a read replica in a diff AZ and run the analytics workload on the replica db**
+- Create a Read Replica in different AZ and run the analytics workload on the source DB
+11. You would like to create a disaster recovery strategy for your RDS PostgreSQL database so that in case of a regional outage the database can be quickly made available for both read and write workloads in another AWS Region. The DR database must be highly available. What do you recommend?
+- create a read replica in the same region and enable the MultiAZ on the main DB
+- **Create a read replica in a diff region and enable MultiAZ on read replica**
+- Create a read replica in the same region and enable MultiAZ on the read replica
+- Enable Multi-Region option on the Main DB
+12. You have migrated the MySQL database from on-premises to RDS. You have a lot of applications and developers interacting with your database. Each developer has an IAM user in the company's AWS account. What is a suitable approach to give access to developers to the MySQL RDS DB instance instead of creating a DB user for each one?
+- By default IAM users have access to your RDS db
+- Use Amazon Cognito
+- **Enable IAM DB Authentication**
+13. Which of the following statement is true regarding replication in both RDS Read Replicas and Multi-AZ?
+- Read replica uses ASYNC replication and MutiAZ uses SYNC replication
+14. How do you encrypt an unencrypted RDS DB instance?
+- **Create a snapshot of the unencrypted RDS DB instance, copy the snapshot and tick "Enable encryption", then restore RDS DB instance from the encrypted snapshot**
+15. For your RDS DB, you can have up to __ replica?
+- **15**
+16. Which RDS database technology does NOT support IAM Database Authentication?
+- **Oracle**
+17.  You have an unencrypted RDS DB instance and you want to create Read Replicas. Can you configure the RDS Read Replicas to be encrypted?
+  - **NO**
+18. An application running in production is using an Aurora Cluster as its database. Your development team would like to run a version of the application in a scaled-down application with the ability to perform some heavy workload on a need-basis. Most of the time, the application will be unused. Your CIO has tasked you with helping the team to achieve this while minimizing costs. What do you suggest?
+- Use an AUrora GLobal DB
+- Use RDS
+- **Use Aurora Serverless**
+- Run Aurora and write a script to shutdown every night
+19. How many Aurora Read Replicas can you have in a single Aurora DB Cluster?
+-**15**
+20.  Amazon Aurora supports both .......................... databases.
+- **MySQL and POstgres**
+21. You work as a Solutions Architect for a gaming company. One of the games mandates that players are ranked in real-time based on their scores. Your boss asked you to design and then implement an effective and highly available solution to create a gaming leaderboard. What should you use?
+- Use RDS for MySQL
+- Use AMazon AUrora
+- Use EnstiCache for Memcached
+- **Use ElastiCache for Redis - Sorted Sets**
+
+22. You need full customization of an Oracle Database on AWS. You would like to benefit from using the AWS services. What do you recommend? 
+- RDS for Oracle
+- **RDS Custome for Oracle**
+- Deploy Oracle on EC2
+
+23. You need to store long-term backups for your Aurora database for disaster recovery and audit purposes. What do you recommend?
+-  Enable Automated Backups
+-  **Perform On Demand BAckups**
+-  Use AUrora Database Cloning
+  
+24. Your development team would like to perform a suite of read-and-write tests against your production Aurora database because they need access to production data as soon as possible. What do you advise?
+- Create Aurora Read Replica
+- Do the test against the production db
+- Make a DB snapshot and Restore it into a new DB
+- **Use Arora Cloning Feature**
+
+25. You have 100 EC2 instances connected to your RDS database and you see that upon maintenance of the database, all your applications take a lot of time to reconnect to RDS, due to poor application logic. How do you improve this? 
+- Fix all apps
+- Disable Multi-AZ
+- Enable Multi-AZ
+- **Use an RDS Proxy**
+  - This reduces the failover time by up to 66% and keeps connection actives for your applications

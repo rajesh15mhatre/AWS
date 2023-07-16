@@ -1,37 +1,87 @@
 # Section 10: Route 53
 https://www.udemy.com/course/aws-certified-solutions-architect-associate-saa-c03/learn/lecture/28384280#overview
 ## 101. What is DNS
--
-
-
+- Overview
+  - Domain Name System which translates the human-friendly hostnames into the machine IP addresses
+  - www.google.com => 172.217.18.36
+  - DNS is the backbone of the Internet
+  - DNS uses the hierarchical naming structure
+- DNS Terminologies
+  - Domain Registrar: Amazon Route 53, GoDaddy, …
+- - DNS Records: A, AAAA, CNAME, NS, …
+  - Zone File: contains DNS records
+  - Name Server: resolves DNS queries (Authoritative or Non-Authoritative)
+  - Top Level Domain (TLD): .com, .us, .in, .gov, .org, …
+  - Second Level Domain (SLD): amazon.com, google.com, …
+  - http(protocol)://api(domain name).www.(subdomain).example(SLD).(TLD)com(ROOT) =  fully qualified domain name
+- How DNS works
+  - Client request example.com to local DNS server
+  - Local DNS seeach url in root DNS server
+  - if not found Then searches TLD server
+  - als further searches SLD DNS server
+  - Once found result LOcal DNS servers save the result in the cache
+## 102 Route 53 - overview
+- Overview
+  - A highly available, scalable, fully managed and Authoritative DNS
+  - Authoritative = the customer (you) can update the DNS records
+  - Route 53 is also a Domain Registrar
+  - Ability to check the health of your resources
+  - The only AWS service which provides 100% availability SLA
+  - Why Route 53? 53 is a reference to
+the traditional DNS port
+- Route 53 - records
+  - How do you want to route traffic for a domain
+  - Each record contains:
+  - Domain/subdomain Name – e.g., example.com
+  - Record Type – e.g., A or AAAA
+  - Value – e.g., 123.456.789.123
+  - Routing Policy – how Route 53 responds to queries
+  - TTL – amount of time the record cached at DNS Resolvers
+  - Route 53 supports the following DNS record types:
+  - (must know) A / AAAA / CNAME / NS
+  - (advanced) CAA / DS / MX / NAPTR / PTR / SOA / TXT / SPF / SRV
+- Route 53 record types
+  - A – maps a hostname to IPv4
+  - AAAA – maps a hostname to IPv6
+  - CNAME – maps a hostname to another hostname
+    - The target is a domain name that must have an A or AAAA record
+    - Can’t create a CNAME record for the top node of a DNS namespace (Zone Apex)
+    - Example: you can’t create for example.com, but you can create for www.example.com
+  - NS – Name Servers for the Hosted Zone
+  - Control how traffic is routed for a domain
+- Route 53 - Hosted Zones
+  - A container for records that define how to route traffic to a domain and its subdomains
+  - Public Hosted Zones – contain records that specify how to route traffic on the Internet (public domain names) application1.mypublicdomain.com
+  - Private Hosted Zones – contain records that specify how you route traffic within one or more VPCs (private domain names) application1.company.internal
+  - You pay $0.50 per month per hosted zone
 ## 103 Route 53 - registering a domain
 - Goto route53 - registered domains - select unique domain name 
-- this is paid service $13 per years here we have options to auto renew and to privacy mode to hide contact information 
+- this is paid service of $13 per year here we have options to auto-renew and to privacy, mode to hide contact information 
 
-## 104 Creting our first record
-- route 53- hosted zones - click on domain - create record 
-- give name as prefix to your domain ex: api.example.com
+## 104 Creating our first record
+- route 53- hosted zones - click on the domain - create a record 
+- give name as a prefix to your domain ex: api.example.com
 - select type of records like A, AAAA 
-- Enter ip address of EC2 or any other server for new domain record
-- Everything default ans clicke create button 
+- Enter IP address of EC2 or any other server for a new domain record
+- Everything default and click create button 
 
-- cloudshell - CLI
+- cloud shell - CLI
   - sudo yum install -y bind-utils
-  - then search for newly created domain record, it will retune inserted ip address
+  - then search for the newly created domain record, it will retune inserted IP address
     - nslookup api.exaple.com
-  - we can also use dig command
+  - we can also use the dig command
     - dig api.example.com
 
 ## 105. Route  53 EC2 setup
-- Create 3 EC2 instances in different region and a load balancer for these ec2s
-- Create EC2 instances internet facing and see if you are able to access them from browser and also from loadbalancer url
+- Create 3 EC2 instances in different regions and a load balancer for these ec2s
+- Create EC2 instances internet facing and see if you are able to access them from the browser and also from load balancer URL
 
 
-## 106. Rout 53 TTL (Time To LIve)
-- time to live means we say client to catch the result for certain time
-- If we kept more TTL then client will loose latest that for that period
-- If we keep low TTL then client will keep connecting to route 53 to request data even data have not changed
-- Set TTL to 300secondas and use `dig api.example.com` command to see the timer of catched seconds it should how much time the data will be under catched
+## 106. Route 53 TTL (Time To Live)
+- time to live means we say the client to catch the result for a certain time
+- If we kept more TTL then the client will lose latest that for that period
+- If we keep low TTL then the client will keep connecting to route 53 to request data even if data have not changed
+- Set TTL to 300secondas and use the `dig api.example.com` command to see the timer of cached seconds it should how much time the data will be under cached
 
 
 ## 107.Route 53 CNAME vs Alias
@@ -71,18 +121,18 @@ https://www.udemy.com/course/aws-certified-solutions-architect-associate-saa-c03
 - Create an alias record:
    - Goto hosted zone give record name (**myalias**.example.com) 
    - select record type = A 
-   - turn alias on using toggle button 
-   - Select route traffic type from list - alias to app load balancer
+   - turn the alias ON using the toggle button 
+   - Select route traffic type from the list - alias to the app load balancer
      - select region -> load app balancer 
-   - we have option to evaluate health as it's ALB
+   - we have the option to evaluate health as it's ALB
    - Create record
- - Incase you just want to redirect your main domain ex example.com use alias/Cname wll not work
+ - In case you just want to redirect your main domain ex example.com using alias/CNAME wll not work
    - Goto hosted zone keep record name blank (example.com) 
    - select record type = A 
-   - turn alias on using toggle button 
-   - Select route traffic type from list - alias to app load balancer
+   - turn the alias ON using the toggle button 
+   - Select route traffic type from the list - alias to the app load balancer
      - select region -> load app balancer 
-   - we have option to evaluate health as it's ALB
+   - we have the option to evaluate health as it's ALB
    - Create record
    
 ## 108. Routing Policy - simple

@@ -1,4 +1,4 @@
-# Section 10: Route 53
+# Section 10: Route 53 Not Feer Tire so hands on not possible 
 https://www.udemy.com/course/aws-certified-solutions-architect-associate-saa-c03/learn/lecture/28384280#overview
 ## 101. What is DNS
 - Overview
@@ -188,28 +188,31 @@ the traditional DNS port
   - Provide your custom record ID (any name)
   - Click on Add records and follow the same steps for next EC2 ip
   - we can create multiple records for different EC2 
-  - Create record
-  
-  
- ## 110. Routing Policy - Health checks 
-- HTTP Health Checks are only for **public resources**
-- Health Check => Automated DNS Failover:
-  1. Health checks that monitor an endpoint (application, server, other AWS resource)
-  2. Health checks that monitor other health checks (Calculated Health Checks)
-  3. Health checks that monitor CloudWatch Alarms (full control !!) – e.g., throttles of DynamoDB, alarms on RDS, custom metrics,… (helpful for private resources)
-- Health Checks are integrated with CW metrics
-- Health Checks – Monitor an Endpoint
-  - About 15 global health checkers will check the endpoint health 
+  - Click button Create record
+
+
+## 111. Route 53 - Health Checks
+- Overview
+  - HTTP Health Checks are only for public resources
+  - Health Check => Automated DNS Failover:
+    1. Health checks that monitor an endpoint (application, server, other AWS resource)
+    2. Health checks that monitor other health checks (Calculated Health Checks)
+    3. Health checks that monitor CloudWatch Alarms (full control !!) – e.g., throttles of DynamoDB, alarms on RDS, custom metrics, … (helpful for private resources)
+  - Health Checks are integrated with CW
+metrics
+- Health CHceks - Monitor an EndPoint
+  - **About 15 global health checkers will check the endpoint health**
     - Healthy/Unhealthy Threshold – 3 (default)
     - Interval – 30 sec (can set to 10 sec – higher cost)
-    - Supported protocol: HTTP, HTTPS, and TCP
-    - If > 18% of health checkers report the endpoint is healthy, Route 53 considers it **Healthy**. Otherwise, it’s **Unhealthy**
-    - Ability to choose which locations you want Route 53 to use
+    - Supported protocol: HTTP, HTTPS and TCP
+    - If > 18% of health checkers report the endpoint is **healthy**, Route 53 considers it Healthy. Otherwise, it’s **Unhealthy**
+    - Ability to choose which locations you want Route 53 to
+use
   - Health Checks pass only when the endpoint responds with the 2xx and 3xx status codes
-  - Health Checks can be set up to pass/fail based on the text in the first **5120 bytes** of the response
-  - Configure your router/firewall to allow incoming requests from Route 53 Health Checkers
- - Route 53 – Calculated Health Checks
-   - Combine the results of multiple Health Checks into a single Health Check
+  - Health Checks can be setup to pass / fail based on the text in the first 5120 bytes of the response
+  - Configure you router/firewall to allow incoming requests from Route 53 Health Checkers
+- Route 53 – Calculated Health Checks
+  - - Combine the results of multiple Health Checks into a single Health Check
   - You can use **OR, AND, or NOT**
   - Can monitor up to 256 Child Health Checks
   - Specify how many of the health checks need to pass to make the parent pass
@@ -218,3 +221,100 @@ the traditional DNS port
   - Route 53 health checkers are outside the VPC
   - They can’t access private endpoints (private VPC or on-premises resources)
   - You can create a CloudWatch Metric and associate a CloudWatch Alarm, then create a Health Check that checks the alarm itself
+
+## 112 Route 53 - Health Checks Hands on
+- Create 3 health checks for all three EC2 instances
+  - Route 53- health checks - create health checkes
+  - givename region - **endpoint** - provide ip address
+  - port 80 - prtocol http
+  - provide path is application
+  - advance config - standard check every 30 seconds
+- delete http inbound rule so 1 ec2 instace will be shown unhealthy it take 10-15 minutes under health chek
+- Calculated health cheks
+   Route 53- health checks - create health checkes
+  - givename region - **status of ither health checks** - select 3 health checks(earlier created) to be monitored
+  - Select calculation under **report when **
+    -  report when 1 of 3 are unhealthy 
+    - report when all are unhealthy
+    - report when either unhealthy
+  - next create
+## 113 Routing Policy - Failover
+- in case of EC2 instace failover it will router to healthy EC2
+- Create failover
+  - route 53 - hosted zones - accoutn - Create record
+  - give name - provice ip address and select routing policy to failover
+  - select the failover record type as primary
+  - select health check policy for that ec2
+  - provide records ID
+  - Add another records with other EC2 (failover Ec2) as
+    - give name - provice ip address and select routing policy to failover
+  - select the failover record type as secondary
+  - select health check policy for that ec2
+  - provide records ID
+  - Create records
+- test by removing http outbound rule from security group to see if secondary EC2 routee as primary is unhealthy
+## 114 - Routing Policy - Geolocation
+- Routing Policies
+  - Different from Latency-based!
+  - This routing is based on user location
+  - Specify location by Continent, Country or by US State (if there’s overlapping, most precise location selected)
+- Should create a “Default” record (in case there’s no match on location)
+- Use cases: website localization, restrict content distribution, load balancing, …
+- Can be associated with Health Checks
+- Hands on
+  - route 53 - hosted zones - accoutn - Create record
+  - give name - provice ip address and select routing policy to failover
+  - Select routing policy **Geolocation**
+  - Select Country -US
+  - Add another record - Repeat steps for othe 2 Ec2 instances for Asia and Europe
+  -  Create Record
+-  Try aceessing URL by changing your location via VPAN so when you are in India wyou will visit EC2 in Asia vice cersa
+# 115 Routng policy - Geoproximity 
+- Overview
+  - Route traffic to your resources based on the geographic location of users and resources
+  - Ability to shift more traffic to resources based on the defined bias
+  - To change the size of the geographic region, specify bias values:
+    - To expand (1 to 99) – more traffic to the resource
+    - To shrink (-1 to -99) – less traffic to the resource
+  - Resources can be:
+    - AWS resources (specify AWS region)
+    - Non-AWS resources (specify Latitude and Longitude)
+  - You must use Route 53 Traffic Flow to use this feature
+- Routing policy based on geolaction to shift traffic to spefic region based on biased
+## 116. Routing Policy - IP -based 
+- Overview
+  - Routing based on client's IP address
+  - You provide a list of CIDRs for ypur clients and the corresponding endpoints/location (use-IP-to-endpoints mapping)
+  - Use cases: Optimaize performance, reduce noetwork costs
+  - Examople : route end users from a particular ISP (range of IP address) to a specific endpoints(EC2)
+
+## 117. Routing Pllicy - Multivalue 
+- Overview  
+  - Use when routing traffic to multiple resources
+  - Route 53 return multiple values/resources
+  - Can be associated with Health Cheks (return only value for healthy resources)
+  - Up to 8 healthy records are returned for each multi-value query
+  - Multi -value is not a substitute for having an ELB
+  - It sis better than simple routing policy wiht mutiple ec2 ips as it randomkly retuns resource ans also health check is not poosible on simple multi-ip policy where as in Multi value we can have halth check for each value (EC2)
+- Hands On
+  - route 53 - hosted zones - accoutn - Create record
+  - give name - provice ip address and select routing policy to failover
+  - Select routing policy   - multi -value
+  - Select TTL 1min
+  - Select heacth check and provide record  id (any text)
+
+## 118.3rd patry Domain & route 53
+- Overview
+  - You buy or register your domain name with a Domain Registrar typically by paying annual charges (e.g., GoDaddy, Amazon Registrar Inc., …)
+  - The Domain Registrar usually provides you with a DNS service to manage your DNS records
+  - But you can use another DNS service to manage your DNS records
+  - Example: purchase the domain from GoDaddy and use Route 53 to manage your DNS records
+- How to use Route 53 with 3rd party Domains
+  - If you buy your domain on a 3rd party registrar, you can still use Route 53 as the DNS Service provider
+  - Create a Hosted Zone in Route 53
+  - Update NS Records on 3rd party website to use Route 53 Name Servers
+  - Domain Registrar != DNS Service
+  - But every Domain Registrar usually comes with some DNS features
+
+## 119. Route 53 - section clean up
+- Deleted all EC2 instanecs, Domaina host, records createed , taget groups ,  

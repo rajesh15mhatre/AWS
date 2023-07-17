@@ -318,3 +318,43 @@ use
 
 ## 119. Route 53 - section clean up
 - Deleted all EC2 instanecs, Domaina host, records createed , taget groups ,  
+
+
+## Quiz
+1. You have purchased mycoolcompany.com on Amazon Route 53 Registrar and would like the domain to point to your Elastic Load Balancer my-elb-1234567890.us-west-2.elb.amazonaws.com. Which Route 53 Record type must you use here?
+  - CNAME (You can't create a CNAME record that has the same name as the top node of the DNS namespace (Zone Apex), in our case "mycoolcompany.com.")
+  - **Alias**
+2. You have deployed a new Elastic Beanstalk environment and would like to direct 5% of your production traffic to this new environment. This allows you to monitor for CloudWatch metrics and ensuring that there're no bugs exist with your new environment. Which Route 53 Record type allows you to do so?
+  - Simple
+  - **Weighted**(Weighted Routing Policy allows you to redirect part of the traffic based on weight (e.g., percentage). It's a common use case to send part of traffic to a new version of your application.)
+  - Latency
+  - Failover
+3. You have updated a Route 53 Record's myapp.mydomain.com value to point to a new Elastic Load Balancer, but it looks like users are still redirected to the old ELB. What is a possible cause for this behavior?
+  - Because of the Alias record
+  - Because of the CNAME
+  - **Because of the TTL** (Each DNS record has a TTL (Time To Live) which orders clients for how long to cache these values and not overload the DNS Resolver with DNS requests. The TTL value should be set to strike a balance between how long the value should be cached vs. how many requests should go to the DNS Resolver.)
+  - Because of Route 53 Health Checks
+4. You have an application that's hosted in two different AWS Regions us-west-1 and eu-west-2. You want your users to get the best possible user experience by minimizing the response time from application servers to your users. Which Route 53 Routing Policy should you choose?
+- Multi value
+- Weighted
+- **Latency** (Latency Routing Policy will evaluate the latency between your users and AWS Regions, and help them get a DNS response that will minimize their latency (e.g. response time))
+- Geolocation
+5. You have a legal requirement that people in any country but France should NOT be able to access your website. Which Route 53 Routing Policy helps you in achieving this?
+  - Latency
+  - Simple
+  - Multi value
+  - **Geolocation**(You have a legal requirement that people in any country but France should NOT be able to access your website. Which Route 53 Routing Policy helps you in achieving this?)
+6. You have purchased a domain on **GoDaddy** and would like to use Route 53 as the DNS Service Provider. What should you do to make this work?
+  - Request for a domain transfer
+  - Create a private hosted zone and update the 3rd party regidtar NS(namespace) record
+  - Create a public hosted zone and update the route 53 NS record
+  - **Create a public Hosted Zone and update the 3rd party registar NS record** (Public Hosted Zones are meant to be used for people requesting your website through the Internet. Finally, NS records must be updated on the 3rd party Registrar.)
+7. Which of the following are **NOT** valid Route 53 Health Checks?
+  - **Health check that monitors SQS Queue**
+  - Health check that monitor an Endpoint
+  - Health check that monitors other Health checks
+  - Health checks that monitor CloudWatch Alarm
+
+
+
+

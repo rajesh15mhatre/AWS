@@ -22,7 +22,7 @@ Background
 AWS Global infrastructure:
 We can get this info on 
 - AWS Regions: Region is cluster of data centres, available all around the world and has name e.g. us-east-2 , eu-east-1
-Factors to choose regions(CAPP):
+Factors to choose regions(**CAPP**):
   - Compliance: some data governance and legal requirements
   - Proximity to users: reduce latency.
   - Availibility: All services are not available in all regions.

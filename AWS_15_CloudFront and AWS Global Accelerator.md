@@ -72,10 +72,23 @@ can talk to internal HTTPS backends
     3. Price Class 100: only the least expensive regions
 
 ## 167. CloudFront -Cache- invalidations
+- In case you update the back-end origin, CloudFront doesn’t know about it and will only get the refreshed content after the TTL has expired
+- However, you can force an entire or partial cache refresh (thus bypassing the TTL) by performing a CloudFront Invalidation
+- You can invalidate all files (*) or a special path (/images/*)
 
-
-
-
+## 168. AWS Global Accelerator
+- Scenario
+  - You have deployed anapplication and have global users who want to access it directly.
+  - They go over the publicinternet, which can add a lot of latency due to many hops
+  - We wish to go as fast as possible through AWS network to minimize latency
+- Unicast IP vs Anycast IP
+  - Unicast IP: one server holds one IP address
+  - Anycast IP: all servers hold the same IP address and the client is routed to the nearest one
+- Solution
+  - Leverage the AWS internal network to route to your application
+  - 2 Anycast IP are created for your application
+  - The Anycast IP send traffic directly to Edge Locations
+  - The Edge locations send the traffic to your application
 
 
 

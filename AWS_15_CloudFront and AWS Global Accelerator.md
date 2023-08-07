@@ -110,12 +110,91 @@ can talk to internal HTTPS backends
     - Dynamic content (such as API acceleration and dynamic site delivery)
     - Content is served at the edge
   - Global Accelerator
-   - Improves performance for a wide range of applications over TCP or UDP
-   - Proxying packets at the edge to applications running in one or more AWS Regions.
-   - Good fit for non-HTTP use cases, such as gaming (UDP), IoT (MQTT), or Voice over IP
-   - Good for HTTP use cases that require static IP addresses
-   - Good for HTTP use cases that required deterministic, fast regional failover
+    - Improves performance for a wide range of applications over TCP or UDP
+    - Proxying packets at the edge to applications running in one or more AWS Regions.
+    - Good fit for non-HTTP use cases, such as gaming (UDP), IoT (MQTT), or Voice over IP
+    - Good for HTTP use cases that require static IP addresses
+    - Good for HTTP use cases that required deterministic, fast regional failover
+## 170. AWS Global Accelerator - Hands-on 
+- It's not free
+- Create 2 instances by selecting different  regions one by one and hardcode region names in the web app user script 
+- Search for AWS Global Accelerator
+- Create accelerator -given name - port:80, protocol: TCP  - next 
+- select region - trafic 100 -
+- Health check port and protocol - 80 and HTTP
+- path - /
+- interval 10
+- threshold count - 3 -Next 
+- Add another endpoint for EC2 instance for both the  regions
+- weight - 120
+- Click Create button 
+- test the accelerator URL by using VPN from the region you selected and you can see the request would be router to the nearest EC2
 
+## Quiz - CloudFront 
+1. You have a CloudFront Distribution that serves your website hosted on a fleet of EC2 instances behind an Application Load Balancer. All your clients are from the United States, but you found that some malicious requests are coming from other countries. What should you do to only allow users from the US and block other countries?
+- **Use CloudFront Geo Restriction**
+- Use Origin Access Control
+- Set up a security group and attach it to your CloudFront Distribution
+- Setup a security group and attche it to your CloudFront Distribution
+- Use a Route 53 Latency record and attched it to CloudFront
 
+2. You have a static website hosted on an S3 bucket. You have created a CloudFront Distribution that points to your S3 bucket to better serve your requests and improve performance. After a while, you noticed that users can still access your website directly from the S3 bucket. You want to enforce users to access the website only through CloudFront. How would you achieve that?
+- Send email to your client and tell them to not use the s3 endpoint
+- **Configure your CloudFront Distribution and create an Origin Access Control OAC, then update your S3 bucket policy to only accept request from your CloudFront Distribution**
+- Use s3 Access Point to redirect client to CloudFront
+
+3. What does this S3 bucket policy do?
+
+{
+
+    "Version": "2012-10-17",
+
+    "Id": "Mystery policy",
+
+    "Statement": [{
+
+        "Sid": "What could it be?",
+
+        "Effect": "Allow",
+
+        "Principal": {
+
+           "Service": "cloudfront.amazonaws.com"
+
+        },
+
+        "Action": "s3:GetObject",
+
+        "Resource": "arn:aws:s3:::examplebucket/*",
+        "Condition": {
+            "StringEquals": {
+                "AWS:SourceArn": "arn:aws:cloudfront::123456789012:distribution/EDFDVBD6EXAMPLE"
+            }
+        }
+
+    }]
+
+}
+
+- Forces GetObject request to be encrypted if coming fron cloudfront
+- **Only allows the s3 bucket to be accessed from your cloudfront distribution**
+- only allows getobject type of request on the s3 bucket fron anybody
+
+4. A WordPress website is hosted in a set of EC2 instances in an EC2 Auto Scaling Group and fronted by a CloudFront Distribution which is configured to cache the content for 3 days. You have released a new version of the website and want to release it immediately to production without waiting for 3 days for the cached content to be expired. What is the easiest and most efficient way to solve this?
+- Open a support ticket withAWS to remove the cloudfront cache
+- **CloudFront Cache invalidaiton**
+- EC2 cahce invalidation
+
+5. A company is deploying a media-sharing website to AWS. They are going to use CloudFront to deliver the context with low latency to their customers where they are located in both US and Europe only. After a while there a huge costs for CloudFront. Which CloudFront feature allows you to decrease costs by targeting only US and Europe?
+- CloudFront Cache Invalidation
+- C**loudFront Price classes**
+- CloudFront Cache Behaviour
+- Origin Access Control
+
+6. A company is migrating a web application to AWS Cloud and they are going to use a set of EC2 instances in an EC2 Auto Scaling Group. The web application is made of multiple components so they will need a host-based routing feature to route to specific web application components. This web application is used by many customers and therefore the web application must have a static IP address so it can be whitelisted by the customers’ firewalls. As the customers are distributed around the world, the web application must also provide low latency to all customers. Which AWS service can help you to assign a static IP address and provide low latency across the globe?
+- **AWS Global Accelerator+ ALB**
+- Amazon CloudFront
+- NLB
+- ALB
 
 

@@ -166,3 +166,106 @@ IoT telemetry data…
   - **Kinesis Video Streams**: capture, process, and store video stream
 
 
+## 192. Kinesis data stream 
+- it have partitions as Shrard which number needs to be decided initially say 6 shards
+- Producer: Source system can be app, client, SDK, Kinesis Agent 
+- producer Recods: data sent by producer \called record which consist partition key which decides in which shard data will go and actual data lited to 1MB in seize per sec.
+- A shard can receive 1 MBPS or 1000 msg per sec 
+- COnsumer - data recives from Kinesis are called consumer which can be app, lambda, Kinesis firehoe, Kinesis data analytics
+- Kinesis data stream's record: data sent by Kinesis to consumre is a called record which consists of Partition Key , Sequence number (where records was in shard) and data blob. Speed is 2 MBPS per shard
+ - Overview 
+  - Retention between 1 day to 365 days
+  - Ability to reprocess (replay) data
+  - Once data is inserted in Kinesis, it can’t be deleted (immutability)
+  - Data that shares the same partition goes to the same shard (ordering)
+  - Producers: AWS SDK, Kinesis Producer Library (KPL), Kinesis Agent
+  - Consumers:
+    - Write your own: Kinesis Client Library (KCL), AWS SDK
+    - Managed: AWS Lambda, Kinesis Data Firehose, Kinesis Data Analytics
+- Kinesis Data Streams – Capacity Modes
+  - Provisioned mode:
+    - You choose the number of shards provisioned, scale manually or using API
+    - Each shard gets 1MB/s in (or 1000 records per second)
+    - Each shard gets 2MB/s out (classic or enhanced fan-out consumer)
+    - You pay per shard provisioned per hour
+  - On-demand mode:
+    - No need to provision or manage the capacity
+    - Default capacity provisioned (4 MB/s in or 4000 records per second)
+    - Scales automatically based on observed throughput peak during the last 30 days
+    - Pay per stream per hour & data in/out per GB
+- Kinesis Data Streams Security
+  - Control access / authorization using IAM policies
+  - Encryption in flight using HTTPS endpoints
+  - Encryption at rest using KMS
+  - You can implement encryption/decryption of data on client side (harder)
+  - VPC Endpoints available for Kinesis to access within VPC
+  - Monitor API calls using CloudTrail
+
+## 193. Kinesis Data Stream - Hands on - No free tier
+- Search kinesis - select option - data stream
+- USe CLI command to store stream into kinesis and to retrive it from kenisis commands are given in resources
+
+
+## 194. Kinesis data Firehose - overview
+- Overview 
+  - Producers can be app, client, kinesis data stream, Sdk, KPL, cloudwatch, AWS IoT, Kinesis Agent
+  - records - 1mBPS data can be read from producer to Kinesis firehose
+  - Post data loading optionally data can be processed using Lambda 
+  - Data will be written in batches to:
+    - AWS destinaitons:
+      - S3
+      - Redshift - copy through s3
+      - AWS OpeanSearch
+    - 3rd party destinations:
+      - Datadog
+      - splunk
+      - mongoDB
+    - Custom Destinations
+      - HTTP endpoint: API
+  - Firehose can backup all or failed data to s3 bucket
+- Summary
+  - Fully Managed Service, no administration, automatic scaling, serverless
+    - AWS: Redshift / Amazon S3 / OpenSearch
+    - 3rd party partner: Splunk / MongoDB / DataDog / NewRelic / …
+    - Custom: send to any HTTP endpoint
+  - Pay for data going through Firehose
+  - **Near Real Time**
+    - 60 seconds latency minimum for non full batches
+    - Or minimum 1 MB of data at a time
+  - Supports many data formats, conversions, transformations, compression
+  - Supports custom data transformations using AWS Lambda
+  - Can send failed or all data to a backup S3 bucket
+- Kinesis Data Stream VS firehose
+  - Data Stream
+    - Streaming service for ingest at scale
+    - Write custom code (producer / consumer)
+    - Real-time (~200 ms)
+    - Manage scaling (shard splitting / merging)
+    - Data storage for 1 to 365 days
+    - Supports replay capability 
+  - Firehose
+    - Load streaming data into S3 / Redshift / OpenSearch / 3rd party / custom HTTP
+    - Fully managed
+    - Near real-time (buffer time min. 60 sec)
+    - Automatic scaling
+    - No data storage
+    - Doesn’t support replay capability
+
+  ## 195. Kinesis Data Firehose - Hands On
+  - Goto data stram - Delivery stream 
+  - create stream - select source kinesis stream - 
+  - select destination s3
+  - give s3 sub bucket name for error output
+  - create delivery stream button click
+  - goto data stream - use cli and using command send test data
+  - test if data is available in s3 backup bucket 
+  - delete stream and edelivery stream
+
+  ## 196. Kinesis Data Analytics
+  just a note no video
+   -- ...It will be discussed in the analytics section of this course 😄
+
+## 197. Data Irdering for Kenisis vs SQS FIFO
+
+
+

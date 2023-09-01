@@ -23,7 +23,9 @@ def lambda_handler(event, context):
 ```
 
 
+https://www.myworkday.com/wday/authgwy/nb/login.htmld?redirect=n
 
+https://www.myworkday.com/nb/login.flex?redirect=n
 
 
 

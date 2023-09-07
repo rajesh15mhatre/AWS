@@ -1,9 +1,36 @@
+# Create a lambda function to read and write Excel file in s3
+- We need to create a lambda package with the pandas library as it is not available directly
+## Create lambda package
+- Create a Ubuntu ec2 instance
+- update system
+  - sudo apt-get update
+- instal python version matching with lambda
+  - sudo apt-get install python3.11
+- check python version exists
+  -  ls /usr/bin/python*
+-  Change the default python version
+  -  sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1
+  -  sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 2
+-  Select from existing Python alternatives 
+  -  sudo update-alternatives --config python3
+  -  Press the selection number to select the required alternatives from the result of the above command
+-  Make dir structure
+  -  mkdir -p build/python/python3.11/site-packages
+-  install pip3 if not installed already
+  - sudo apt install python3-pip -y
+- install packages
+  - pip3 install pandas xlrd -t build/python/lib/python3.11/site-packages/
+- install zip
+  - sudo apt-get install zip
+- cd to build dir and zip package
+  - zip -r pandas_xlrd.zip .
+- 
 ## Glue code to read file
 ```
 s3_path = 's3://s3-bucket/prefix/'
 customer_table = glueContext.create_dynamic_frame_from_options(connection_type= 's3',
                                                                connection_options={"paths": [s3_path]},
-                                                               format='csv', format_options = {"withHeader": True, "optimizeP
+                                                               format='csv', format_options = {"withHeader": True, "optimize
 ```
 ## lambda function to call glue job
 ```

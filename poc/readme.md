@@ -1,14 +1,14 @@
-# Create a lambda function to read and write Excel file in s3
+# Create a lambda function to read and write Excel files in s3
 - We need to create a lambda package with the pandas library as it is not available directly
 ## Create lambda package
 - Create a Ubuntu ec2 instance
 - update system
   - sudo apt-get update
-- instal python version matching with lambda
+- install Python version matching with lambda
   - sudo apt-get install python3.11
-- check python version exists
+- Check python version exists
   -  ls /usr/bin/python*
--  Change the default python version
+-  Change the default Python version
   -  sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1
   -  sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 2
 -  Select from existing Python alternatives 
@@ -16,7 +16,7 @@
   -  Press the selection number to select the required alternatives from the result of the above command
 -  Make dir structure
   -  mkdir -p build/python/python3.11/site-packages
--  install pip3 if not installed already
+-  Install pip3 if not installed already
   - sudo apt install python3-pip -y
 - install packages
   - pip3 install pandas xlrd -t build/python/lib/python3.11/site-packages/
@@ -24,6 +24,10 @@
   - sudo apt-get install zip
 - cd to build dir and zip package
   - zip -r pandas_xlrd.zip .
+- Install aws cli to push zip to s3
+  - sudo apt-get install awscli
+- copy zip to s3
+  - aws s3 cp pandas_xlrd.zip s3://poc-output-report/
 - 
 ## Glue code to read file
 ```

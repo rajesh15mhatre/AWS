@@ -1,10 +1,10 @@
 # Create a lambda function to read and write Excel files in s3 when file pushed to S3
-- We need to create a lambda package as a zip file for the external libraries like pandas as we can use only Python built-in and aws libraries like os, logging, boto3, io & so on
-- also need to create a role for EC2 and Lambda to access the S3 bucket
+- Create a lib package as a zip file for the external libraries as we can use only Python built-in and aws libraries in Lambda function like os, logging, boto3, io & so on
+- Create a role for EC2 and Lambda to access the S3 bucket
   
-## Create lambda package for layer (not use sudo if permission is denied)
+## Create a package zip file to use as layer (use sudo in command if permission is denied)
 - Create a Ubuntu ec2 instance
-- update system
+- Update system
   - sudo apt-get update
 - Install Python version matching with lambda
   - sudo apt-get install python3.11
@@ -16,7 +16,7 @@
 - Select from existing Python alternatives 
   - sudo update-alternatives --config python3
   - Press the selection number to select the required alternatives from the result of the above command
-- Make dir structure use python version same as Lambda executable
+- Make dir structure use Python version matching with Lambda executable (we have used 3.11)
   - mkdir -p build/python/lib/python3.11/site-packages
 - Install pip3 if not installed already
   - sudo apt install python3-pip -y

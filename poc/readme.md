@@ -6,19 +6,19 @@
 - Create a Ubuntu ec2 instance
 - update system
   - sudo apt-get update
-- install Python version matching with lambda
+- Install Python version matching with lambda
   - sudo apt-get install python3.11
-- Check python version exists
-  -  ls /usr/bin/python*
--  Change the default Python version
-  -  sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1
-  -  sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 2
--  Select from existing Python alternatives 
-  -  sudo update-alternatives --config python3
-  -  Press the selection number to select the required alternatives from the result of the above command
--  Make dir structure use python version same as Lambda executable
-  -  mkdir -p build/python/lib/python3.11/site-packages
--  Install pip3 if not installed already
+- Check Python version exists
+  - ls /usr/bin/python*
+- Change the default Python version
+  - sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1
+  - sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 2
+- Select from existing Python alternatives 
+  - sudo update-alternatives --config python3
+  - Press the selection number to select the required alternatives from the result of the above command
+- Make dir structure use python version same as Lambda executable
+  - mkdir -p build/python/lib/python3.11/site-packages
+- Install pip3 if not installed already
   - sudo apt install python3-pip -y
 - Install packages (you can use this command as and when you need to add or remove library
   - pip3 install pandas xlrd -t build/python/lib/python3.11/site-packages/

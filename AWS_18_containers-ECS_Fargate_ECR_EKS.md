@@ -1,9 +1,9 @@
 # Section 18 : Containers in AWS- ECS, Fargate, ECR & EKS
 Link: https://www.udemy.com/course/aws-certified-solutions-architect-associate-saa-c03/learn/lecture/26099482#overview
 
-## 200. Docker instroduction
+## 200. Docker introduction
 - What is Docker?
-  - Docker is a software development platform to deploy apps
+  - Docker is a software development platform for deploying apps
   - Apps are packaged in containers that can be run on any OS
   - Apps run the same, regardless of where they’re run
     - Any machine
@@ -166,4 +166,134 @@ The external instance option is to link your on-prem servers
 - ECS task sents status as event to event bridge like (stat/stopped) in JSON
 - Event bridge triggers SNS topic which sends email to user about the status of the ECS task
 
-## 208. Amazon ECR 
+## 207. Amazon ECR 
+- ECR = Elastic Container Registry
+- Store and manage Docker images on AWS
+- Private and Public repositories (Amazon ECR
+Public Gallery https://gallery.ecr.aws)
+- Fully integrated with ECS, backed by Amazon S3
+- Access is controlled through IAM (permission
+errors => policy)
+- Supports image vulnerability scanning, versioning,
+image tags, image lifecycle, …
+
+## 208. Amazon EKS Overview
+- Overview
+  - Amazon EKS = Amazon Elastic **Kubernetes** Service
+  - It is a way to launch **managed Kubernetes cluster**s on AWS
+  - Kubernetes is an open-source system for automatic deployment, scaling and management of containerized (usually Docker) application
+  - It’s an alternative to ECS, having similar goal but a different API
+  - EKS supports **EC2** if you want to deploy worker nodes or **Fargate** to deploy serverless containers
+  - **Use case:** If your company is already using Kubernetes on-premises or in another cloud, and wants to migrate to AWS using Kubernetes
+  - **Kubernetes is cloud-agnostic** (can be used in any cloud – Azure, GCP…), NO bias on cloud supports any
+  - For multiple regions, deploy one EKS cluster per region
+  - Collect logs and metrics using **CloudWatch Container Insights**
+  - EKS Pod: If you see pods meaning it Kubernetes 
+- Amazon EKS – Node Types
+  - **Managed Node Groups**
+    - Creates and manages Nodes (EC2 instances) for you
+    - Nodes are part of an ASG managed by EKS
+    - Supports On-Demand or Spot Instances
+  - **Self-Managed Nodes**
+    - Nodes created by you and registered to the EKS cluster and managed by an ASG
+    - You can use prebuilt AMI - Amazon EKS Optimized AMI
+    - Supports On-Demand or Spot Instances
+- **AWS Fargate**
+    - No maintenance required; no nodes managed
+- Amazon EKS – Data Volumes
+  - Need to specify **StorageClass** manifest on your EKS cluster
+  - Leverages a **Container Storage Interface (CSI)** compliant driver
+  - Support for…
+    - Amazon EBS
+    - Amazon EFS (works with Fargate)
+    - Amazon FSx for Lustre
+    - Amazon FSx for NetApp ONTAP
+
+## 209. Amazon EKS - Hands On
+- Create EKS cluster ( **its not free tier**)
+  - Goto EKS create DemoEKS
+  - select any latest version
+  - create a role as per instruction on the portal and select
+  - Next
+  - select the default security group, for ipv4
+  - access public 
+  - select default networking options
+  - Next, next Create
+- Create node
+  - DemoEKS - create node - give name DemoNodeGroup
+  - Create a role for EC2 instances search for eksworkerNodePolicy as per console docs
+  -  Next
+  -  Select Amazon Linux  and other server details
+  -  next, next, create
+-  We can also add node on fargate without EC2 as a serverless node
+
+## 210. AWS App Runner
+- Fully managed service that makes it easy to deploy web
+applications and APIs at scale
+- No infrastructure experience required
+- Start with your source code or container image
+- Automatically builds and deploys the web app
+- Automatic scaling, highly available, load balancer, encryption
+- VPC access support
+- Connect to database, cache, and message queue services
+- Use cases: web apps, APIs, microservices, rapid production deployments
+
+## 211. AWS App runner - Hands On
+- **No Free tier**
+- App runner- create
+- Source - registry - ECR public image
+- search httpd image on ECR copy URL and paste it
+- Manually deploy, next
+- Give name httpd, give server config, select port number 80 as given in image doc on ECR
+- All default, next, create
+- test if the server is up by using the default domain URL
+
+## Quiz
+1. You have multiple Docker-based applications hosted on-premises that you want to migrate to AWS. You don't want to provision or manage any infrastructure; you just want to run your containers on AWS. Which AWS service should you choose?
+- ECS in EC2 Luanch mode
+- ECR
+- **Farate on ECS**
+  - AWS Fargate allows you to run your containers on AWS without managing any servers.
+
+2. Amazon Elastic Container Service (ECS) has two Launch Types: .................. and ..................
+- **EC2 Launch Type and Fargate Lunch type**
+- EC2 Launch type and EKS Lunch type
+- Fargate Launch type and EKS Launch Type
+
+3. You have an application hosted on an ECS Cluster (EC2 Launch Type) where you want your ECS tasks to upload files to an S3 bucket. Which IAM Role for your ECS Tasks should you modify?
+- EC2 Instance Profile
+- **ECS Task Role**
+  - ECS Task Role is the IAM Role used by the ECS task itself. Use when your container wants to call other AWS services like S3, SQS, etc.
+
+4. You're planning to migrate a WordPress website running on Docker containers from on-premises to AWS. You have decided to run the application in an ECS Cluster, but you want your docker containers to access the same WordPress website content such as website files, images, videos, etc. What do you recommend to achieve this?
+- **Mount an EFS volume**
+  - EFS volume can be shared between different EC2 instances and different ECS Tasks. It can be used as a persistent multi-AZ shared storage for your containers.
+- Mount an EBS volume
+- Use and EC2 Instance store
+
+5. You are deploying an application on an ECS Cluster made of EC2 instances. Currently, the cluster is hosting one application that is issuing API calls to DynamoDB successfully. Upon adding a second application, which issues API calls to S3, you are getting authorization issues. What should you do to resolve the problem and ensure proper security?
+- Edit the EC2 instance role to add permission to S3
+- **Create an IAM task role for the new application**
+- Enable the Fargate mode
+- Edit the S3 bucket policy to allow the ECS task
+
+6. You are migrating your on-premises Docker-based applications to Amazon ECS. You were using Docker Hub Container Image Library as your container image repository. Which is an alternative AWS service which is fully integrated with Amazon ECS?
+- AWS Fargate
+- **ECR**
+  - Amazon ECR is a fully managed container registry that makes it easy to store, manage, share, and deploy your container images. ECR is fully integrated with Amazon ECS, allowing easy retrieval of container images from ECR while managing and running containers using ECS.
+- EKS
+- EC2
+
+7. Amazon EKS supports the following node types, EXCEPT ………………..
+- Managed Node Groups
+- Self-Managed Nodes
+- Fargate
+- **Lambda**
+
+8. A developer has a running website and APIs on his local machine using containers and he wants to deploy both of them on AWS. The developer is new to AWS and doesn’t know much about different AWS services. Which of the following AWS services allows the developer to build and deploy the website and the APIs in the easiest way according to AWS best practices?
+- **AWS App Runner**
+- EC2 + ALB
+- ECS
+- Fargate
+
+

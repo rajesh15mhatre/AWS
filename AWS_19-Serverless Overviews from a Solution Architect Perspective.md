@@ -57,17 +57,34 @@ Link: https://www.udemy.com/course/aws-certified-solutions-architect-associate-s
     - The container image must implement the Lambda Runtime API
     - ECS / Fargate is preferred for running arbitrary Docker images
 - Lambda integration example
- - We can create Lambda function to create a thumbnail when the image is uploaded and store it to another S3 bucket
- - We can create severless cron job like task by using CludWatch to trigger Lambda function as per required frequency like every hour
+ - We can create a Lambda function to create a thumbnail when the image is uploaded and store it in another S3 bucket
+ - We can create serverless cron job-like tasks by using CludWatch to trigger the Lambda function as per the required frequency like every hour
 - AWS Lambda Pricing: example
   - You can find overall pricing information here:
 https://aws.amazon.com/lambda/pricing/
   - Pay per **calls**:
-    - First 1,000,000 requests are free
+    The first 1,000,000 requests are free
     - $0.20 per 1 million requests thereafter ($0.0000002 per request)
-  - Pay per **duration**: (in increment of 1 ms)
-    - 400,000 GB-seconds of compute time per month for FREE
-    - == 400,000 seconds if function is 1GB RAM
-    - == 3,200,000 seconds if function is 128 MB RAM
+  - Pay per **duration**: (in increments of 1 ms)
+    - 400,000 GB-seconds of computing time per month for FREE
+    - == 400,000 seconds if the function is 1GB RAM
+    - == 3,200,000 seconds if the function is 128 MB RAM
     - After that $1.00 for 600,000 GB-seconds
   - It is usually very cheap to run AWS Lambda so it’s very popular 
+
+## 215. Lambda Hands-On
+- Created a test python job in lambda
+
+## 216. Lambda Limits
+- Execution:
+  - Memory allocation: 128 MB – 10GB (1 MB increments)
+  - Maximum execution time: 900 seconds (15 minutes)
+  - Environment variables (4 KB)
+  - Disk capacity in the “function container” (in /tmp): 512 MB to 10GB
+  - Concurrency executions: 1000 (can be increased)
+- Deployment:
+  - Lambda function deployment size (compressed .zip): 50 MB
+  - Size of uncompressed deployment (code + dependencies): 250 MB
+  - Can use the /tmp directory to load other files at startup
+  - Size of environment variables: 4 KB
+

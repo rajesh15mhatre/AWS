@@ -146,9 +146,20 @@ tokens (e.g., JWT) to allow/deny requests
 - Lamdba@Edge
   - Longer execution time (several ms
   - Adjustable CPU or memory
-  - Your code depends on a 3rd libraries (e.g., AWS SDK to access other AWS services)
+  - Your code depends on a 3rd library (e.g., AWS SDK to access other AWS services)
 - Network access to use external services for processing
 - File system access or access to the body of HTTP requests
 
-## 217. Lambda in VPC
-- 
+# Read PDF notes for the next topics
+
+## 218. Lambda in VPC
+## 219. RDS - Invoking Lambda & Event Notifications
+## 220. Amazon DynamoDB
+## 221. Hands-on
+## 222. Amazon DynamoDB - Adance Features
+## 223. API Gateway Overview
+## 224. API Gateway Hands on
+## 225. Step Functions
+## 226. Amazon Cognito overview
+Quiz
+

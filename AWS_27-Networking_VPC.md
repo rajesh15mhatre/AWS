@@ -54,18 +54,34 @@ Network Access translator
     - Allocate elastic IP
     - Create
 - Set Private route
-  - Right click edit routes
+  - Right-click edit routes
   - DEstiination: 0.0.0.0/0 (ineternewt any ip)
   - Target ( Select NAT Gateway)
   - Save
-- Wait for NAT GW to activate and INternet will be active
+- Wait for NAT GW to activate and the Internet will be active
 - Create multiple NAT GW for HA
 ## 328. NACLs & Security Groups
-- stateful and steless
+- stateful and stateless
   - SG is stateful - meaning if any inbound  is allowed in SG then the same will not be evaluated on outbound so that would be allowed  in SG. The same goes for outbound evaluated requests.  
   - NACL ( Network Access Control List) is stateless: meaning any request outbound or inbound gets evaluated on NACL their earlier inbound and outbound evaluation doesn't get considered 
 - NACL Are subnet level 1 per subnet 
-- Default NACLs accepts everything inbound/outbound with the subnet its associated with
-- 
+- Default NACLs accept everything inbound/outbound with the subnet it's associated with
+## 329. NACL & Security Groups Hands-on
+## 330. VPC Peering
+## 331. VPC Peering Hands-on
+## 332. VPC Endpoints
+- It helps Connect AWS services privately without using the internet 
+## 333. VPC Endpoints hands-on
+## 334. VPC Flow Logs
+## 335. VPC Flow Logs - Hands-on
+## 336. Stire to Site VPN, Virtual Private Gateway & customer Gateway 
+## 337. Stire to Site VPN, Virtual Private Gateway & customer Gateway - Hands-on
+## 338. Direct Connect & Direct Connect Gateway
+## 339. Direct Connect and Site to SIte VPN
+## 340. Transit Gateway
+## 341. VPC Traffic Mirroring
+## 342. IPV6 For VPC
+## 343. IPV6 For VPC - Hands-on
+## 344. Egress Only Internet Gateway
 
 

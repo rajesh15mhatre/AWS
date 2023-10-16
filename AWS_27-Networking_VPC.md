@@ -77,11 +77,28 @@ Network Access translator
 ## 336. Stire to Site VPN, Virtual Private Gateway & customer Gateway 
 ## 337. Stire to Site VPN, Virtual Private Gateway & customer Gateway - Hands-on
 ## 338. Direct Connect & Direct Connect Gateway
-## 339. Direct Connect and Site to SIte VPN
+## 339. Direct Connect and Site to Site VPN
 ## 340. Transit Gateway
 ## 341. VPC Traffic Mirroring
 ## 342. IPV6 For VPC
 ## 343. IPV6 For VPC - Hands-on
 ## 344. Egress Only Internet Gateway
-
+- We can connect the public subnet with IPV4 /6 to the internet via IGW
+- For private subnet, we connect to the internet for IPV4 via NateGW->IGW and for IPV6 via Igress directly.
+## Section Clean up
+- Delete below services
+  - Terminate all EC2s
+  - Elastic IPs
+  - Egress gateway
+  - Internet gateway
+  - Route table
+  - Subnet
+  - VPC Endpoints
+  - NAT Gateways - release Elastic IPs
+  - Peering connection
+  - Network ACLs
+  - VPCs
+- Check the billing page for any services used
+## 347. VPC Section summary
+## 348. Networking cost in AWS
 

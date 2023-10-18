@@ -37,3 +37,22 @@
 - Workaround for Windows: We can create a shared folder on the Windows instance with EBS for other instances to share data 
 - Use MaxI/O for read/write heavy workload
 - Brusting throughput means keeping it lowest and escalating if needed
+- Endpoints are under VPC
+- Private links allow secure connection between VPCs, Services, and apps in AWS
+## 6. FSx
+- It fully manages shared services -like building AD and server
+- Supports SMB - windows and Lustre for Linux
+-  Can be deployed in one or many AZs
+-  AD can be self-managed or by AWS
+## Storage  gateway 
+- On-prem storage to the cloud and vice versa
+- via Vmware-ESX or Hyperwave
+- Its software image
+- types:
+  - File-Based - NTFS
+  - Volume Base - Internet SCSI protocol over IP
+  - Tape-based - Virtual Tape
+- Hosting on EC2 or on-prem
+## Security 
+- user policy
+- GigaByte(10^3...) and GigiByte (2^10...) are different 

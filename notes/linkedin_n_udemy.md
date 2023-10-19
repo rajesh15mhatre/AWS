@@ -55,4 +55,34 @@
 - Hosting on EC2 or on-prem
 ## Security 
 - user policy
-- GigaByte(10^3...) and GigiByte (2^10...) are different 
+- GigaByte(10^3...) and GigiByte (2^10...) are different
+
+# Security
+## IAM 
+- IAM Credentials Report - account's users and the status of their various
+credential
+- IAM Access Advisor - User level report, Service permission and last accessed date. Used to revise your policies
+- MFA and strong Password policy
+- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

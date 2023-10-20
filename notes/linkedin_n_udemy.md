@@ -91,9 +91,40 @@ credential
     - All VPCs should have unique CIDR
   - Require Route table and security group modifications
 ## VPC Security
-- 
-
-
+- Security Groups
+  - Act like firewall assigned to an Instance
+  - Defines allowed ingress(enterance) or Egress(exit) traffic flows
+  - Its closed to open system, default everything is closed and we allows as we need
+  - It's stateful what allowed inbiud also allowed outbound and vice versa
+- NACLs
+  - APplied on subnets
+  - Stateless - need both allow and denie rule
+  - Rule number define precedence. First match applies
+  - like router solutions or firewall at netwo
+  - 
+- NATs
+  - Translates single external address to multiple internal address
+  - Supports public (wheternal address in public) and private (where boath addresses are private) implementation
+- VPG - implemented in cloud
+  - COnnects local networks to the VPC
+  - VPG is the VPN concentrator (multiple VPC can be accessed)
+- CGW - implemented in the customer network
+  - Physical device or software app
+  - Anchore on the customer side
+    - Connects to VPG
+- Both CGW and VPG together forms VPN
+- Alterbnatives:
+  - AWS hardwre VPN
+  - AWS Direct COnnect
+  - VPN CLoudHub
+  - Software VPN (L2TP and iPsec)
+- VPN COnfiguration Options
+  - Split tunnel support was introduced in 2019
+    - Gives flexibility for routing traffic across the VPN specifically for traffic going out to the Internet. Ex allows interhet traffic to byPASS VPN and use VPN for AWS cloud traffic
+  - Certificate enabled to authenticate VPN
+  - Direct connect: Bypasses traditional ISP and connect straigth into AWS
+  - 
+    
 
 
 

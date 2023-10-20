@@ -19,7 +19,7 @@
 - objects called as archives
 - Buckets called vaults, and vault locks
 - no charge for up to 5% data retrieval per month
-- One account = 100 values limit per region
+- One account = 1000 values limit per region
 - Only empty vaults can be deleted
 - Supports multi-part upload
 - Batch Operation: Act on objects
@@ -64,6 +64,35 @@ credential
 - IAM Access Advisor - User level report, Service permission and last accessed date. Used to revise your policies
 - MFA and strong Password policy
 - 
+## VPC
+- New account has default VPC
+  - Default VPC Features
+    - Dynamic Private/public IP
+    - AWS provisioned/Private/public DNS Names
+- Amazon recommends not deleting existing \default VPC
+- DHCP: Dynamic Host Configuration Protocol used to assign IP address automatically to network devices
+  - You can configure the following parameters in DHCP options: Domain Name Servers, Domain Name, NTP Servers, NetBIOS name servers, and NetBIOS node types. 
+- EIP: Elastic IP is chargeble
+  - can be moved between EC2 in the same region
+  - ENI uses Elastic IPs
+- DMZ: A demilitarized zone network provides a buffer between the internet and an organization's private network. The DMZ is isolated by a security gateway, such as a firewall.
+- ENIs
+  - Allows dual-homing: Multiple ENIs attached to an instance achieve dual homing which is access to private as well as  public address
+  - It's a virtual network card
+  - It's associated with a subnet
+- Endpoints
+  - Are channels to connect AWS services that are out of VPC
+## VPC Peering
+- Connects one VPC to another. In legacy on-prem systems we may have created a WAN connection between two companies' private connections and would have given federated access based on AD
+- Process:
+  - Initiating VPC sens request to the receiving VPC
+  - VPC owners only can perform peering
+  - IP CIDR must not overlap
+    - All VPCs should have unique CIDR
+  - Require Route table and security group modifications
+## VPC Security
+- 
+
 
 
 

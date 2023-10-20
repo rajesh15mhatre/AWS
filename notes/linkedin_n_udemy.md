@@ -19,7 +19,7 @@
 - objects called as archives
 - Buckets called vaults, and vault locks
 - no charge for up to 5% data retrieval per month
-- One account = 1000 values limit per region
+- One account = 1000 values limit per region.
 - Only empty vaults can be deleted
 - Supports multi-part upload
 - Batch Operation: Act on objects

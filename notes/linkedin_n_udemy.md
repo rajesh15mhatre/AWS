@@ -121,7 +121,7 @@ credential
   - Split tunnel support was introduced in 2019
     - Gives flexibility for routing traffic across the VPN specifically for traffic going out to the Internet. Ex. allows internet traffic to by PASS VPN and use VPN for AWS cloud traffic only
   - Certificate enabled to authenticate VPN
-  - Direct connect: Bypasses traditional ISP and connects straigth into AWS
+  - Direct connect: Bypasses traditional ISP and connects straight into AWS
     
 
 
